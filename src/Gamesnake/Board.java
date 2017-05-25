@@ -14,6 +14,11 @@ public class Board {
 		snake = new Snake(600/2,600/2);
 		
 	}
+	public boolean gameEnd(){
+		int snakeX = snake.getSnakeX(0);
+		int snakeY = snake.getSnakeY(0);
+		return ( snakeX < 30 || snakeY < 30 || snakeX > Width-30 || snakeY > Height-30);
+	}
 	public void update(){
 		snake.update();
 	}

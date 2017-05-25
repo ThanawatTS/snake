@@ -34,30 +34,32 @@ public class Game  {
 		starttime = System.currentTimeMillis();
 		while(!end){
 			board.update();
+			end = board.gameEnd();
 			timeingame = System.currentTimeMillis() - starttime;
 			delay();
 			
 		}
 	}
 	
-//	public void replay(){
-//		board.start();
-//		end = false;
-//		starttime = System.currentTimeMillis();
-//		while(!end){
-//			timeingame = System.currentTimeMillis() - starttime;
-//			if(!direction.isEmpty()){
-//				Direction di = direction.get(0);
-//				if(timeingame >= di.getTimeInGame()){
-//					direction.remove(di);
-//					di.work(board.getSnake());
-//				}
-//			}
-//			board.update();
-//			delay();
-//		}
-//	}
-//	
+	public void replay(){
+		board.start();
+		end = false;
+		starttime = System.currentTimeMillis();
+		while(!end){
+			timeingame = System.currentTimeMillis() - starttime;
+			if(!direction.isEmpty()){
+				Direction di = direction.get(0);
+				if(timeingame >= di.getTimeInGame()){
+					direction.remove(di);
+					di.work(board.getSnake());
+				}
+			}
+			board.update();
+			end = board.gameEnd();
+			delay();
+		}
+	}
+	
 	
 	public void turnNorth(){
 		System.out.println("1");

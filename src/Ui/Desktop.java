@@ -67,17 +67,17 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.print("asas");
 				replay();
 			}
 			
 		});
-		replaybtn.setEnabled(true);
+		replaybtn.setEnabled(false);
 		add(replaybtn, BorderLayout.SOUTH);
 		
 	}
 	
 	private void initRender(){
+		
 		render = new Timer(1000/ fps, this);
 		ActionListener listener = new ActionListener(){
 			
@@ -85,7 +85,9 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				main.repaint();
-					
+				if(game.End()){
+					replaybtn.setEnabled(true);
+				}
 			}
 		};
 		
@@ -159,9 +161,10 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	}
 	
 	public void replay(){
+		replaybtn.setEnabled(false);
 		SwingWorker sw = new SwingWorker(){
 			public Object doInBackground(){
-//				game.replay();
+				game.replay();
 					return null;
 			}
 		};
