@@ -18,7 +18,7 @@ import javax.swing.Timer;
 
 import Gamesnake.Board;
 import Gamesnake.Game;
-import Gamesnake.Locate;
+
 import Gamesnake.Snake;
 
 
@@ -36,6 +36,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	private static int AllGrid = (600 * 600) / (GridSize * GridSize);
 	private Timer render;
 	private int fps = 60;
+	private boolean Alreadyreplay = true;
 	
 	public Desktop(){
 		game = new Game();
@@ -85,7 +86,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				main.repaint();
-				if(game.End()){
+				if(game.End()&& Alreadyreplay){
 					replaybtn.setEnabled(true);
 				}
 			}
@@ -162,6 +163,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	
 	public void replay(){
 		replaybtn.setEnabled(false);
+		Alreadyreplay = false;
 		SwingWorker sw = new SwingWorker(){
 			public Object doInBackground(){
 				game.replay();

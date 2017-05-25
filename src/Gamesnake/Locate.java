@@ -1,9 +1,9 @@
-package Gamesnake;
+//package Gamesnake;
+//
+//import Ui.Desktop;
 
-import Ui.Desktop;
-
-public class Locate {
-	
+//public class Locate {
+//	
 
 //	public static final Locate NORTH = new Locate(0, -1);
 //	public static final Locate SOUTH = new Locate(0, 1);
@@ -45,4 +45,4 @@ public class Locate {
 //		this.y += locate.y;
 //	}
 	
-}
+//}
