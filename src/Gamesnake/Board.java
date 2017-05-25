@@ -10,12 +10,10 @@ public class Board {
 	public Board(){
 		start();
 	}
-	
 	public void start(){
 		snake = new Snake(600/2,600/2);
 		
 	}
-	
 	public void update(){
 		snake.update();
 	}

@@ -18,7 +18,7 @@ public class Snake {
 	public Snake(){}
 	
 	public Snake(int a,int b){
-		SnakeLenght=4;
+		SnakeLenght = 4;
 		x[0]=a;
 		y[0]=b;
 	}
@@ -87,14 +87,14 @@ public class Snake {
 		public void turnEast(){
 			TurnUp = false;
 			TurnDown = false;
-			TurnLeft = true;
-			TurnRight = false;
+			TurnLeft = false;
+			TurnRight = true;
 		}
 		public void turnWest(){
 			TurnUp = false;
 			TurnDown = false;
-			TurnLeft = false;
-			TurnRight = true;
+			TurnLeft = true;
+			TurnRight = false;
 		}
 		public void update() {
 			move();

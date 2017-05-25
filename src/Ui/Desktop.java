@@ -78,9 +78,9 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	}
 	
 	private void initRender(){
-		render = new Timer(1000/ fps,null);
+		render = new Timer(1000/ fps, this);
 		ActionListener listener = new ActionListener(){
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -88,6 +88,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 					
 			}
 		};
+		
 		render.addActionListener(listener);
 		render.start();
 	}
@@ -131,7 +132,8 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
             } else {
                 g.fillRect(game.getsnankeLocateX(i), game.getsnankeLocateY(i),GridSize, GridSize);
             }
-}
+           
+	}
 //		snake.setSnakeLenght(4); 
 //		   for (int i = 0; i < snake.getSnakeLenght(); i++) {
 //			   snake.setSnakeX((Height / 2)-(i*GridSize));
@@ -159,7 +161,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	public void replay(){
 		SwingWorker sw = new SwingWorker(){
 			public Object doInBackground(){
-				game.replay();
+//				game.replay();
 					return null;
 			}
 		};

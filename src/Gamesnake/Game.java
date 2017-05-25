@@ -1,7 +1,12 @@
 package Gamesnake;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.Timer;
 
 import Direction.Direction;
 import Direction.East;
@@ -9,49 +14,50 @@ import Direction.North;
 import Direction.South;
 import Direction.West;
 
-public class Game {
+public class Game  {
 
 	private Board board;
 	private Long timeingame;
 	private Long starttime;
 	private boolean end;
-	public static final long DELAY = 5;
+	private Timer timer;
 	
+	public static final long DELAY = 15;
 	private List<Direction> direction = new ArrayList<Direction>();
 	
 	public Game(){
 		board = new Board();
 	}
-	
 	public void start(){
 		board.start();
 		end = false;
 		starttime = System.currentTimeMillis();
 		while(!end){
-			timeingame = System.currentTimeMillis() - starttime;
 			board.update();
+			timeingame = System.currentTimeMillis() - starttime;
 			delay();
+			
 		}
 	}
 	
-	public void replay(){
-		board.start();
-		end = false;
-		starttime = System.currentTimeMillis();
-		while(!end){
-			timeingame = System.currentTimeMillis() - starttime;
-			if(!direction.isEmpty()){
-				Direction di = direction.get(0);
-				if(timeingame >= di.getTimeInGame()){
-					direction.remove(di);
-					di.work(board.getSnake());
-				}
-			}
-			board.update();
-			delay();
-		}
-	}
-	
+//	public void replay(){
+//		board.start();
+//		end = false;
+//		starttime = System.currentTimeMillis();
+//		while(!end){
+//			timeingame = System.currentTimeMillis() - starttime;
+//			if(!direction.isEmpty()){
+//				Direction di = direction.get(0);
+//				if(timeingame >= di.getTimeInGame()){
+//					direction.remove(di);
+//					di.work(board.getSnake());
+//				}
+//			}
+//			board.update();
+//			delay();
+//		}
+//	}
+//	
 	
 	public void turnNorth(){
 		System.out.println("1");
@@ -106,11 +112,15 @@ public class Game {
 		
 	}
 	private void delay(){
+		
 		try{
 			Thread.sleep(DELAY);
 		} catch (InterruptedException e){
 			e.printStackTrace();
 		}
+		
 	}
+
+	
 	
 }
