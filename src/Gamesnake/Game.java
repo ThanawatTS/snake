@@ -1,13 +1,7 @@
 package Gamesnake;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.Timer;
-
 import Direction.Direction;
 import Direction.East;
 import Direction.North;
@@ -20,9 +14,8 @@ public class Game  {
 	private Long timeingame;
 	private Long starttime;
 	private boolean end;
-	private Timer timer;
 	
-	public static final long DELAY = 15;
+	public static final long DELAY = 25;
 	private List<Direction> direction = new ArrayList<Direction>();
 	
 	public Game(){
@@ -34,7 +27,13 @@ public class Game  {
 		starttime = System.currentTimeMillis();
 		while(!end){
 			board.update();
-			end = board.gameEnd();
+			if(board.gameEnd()){
+				end = true;
+			}
+			else if (board.gameEnd2()){
+				end = true;
+			}
+			
 			timeingame = System.currentTimeMillis() - starttime;
 			delay();
 			
@@ -49,13 +48,20 @@ public class Game  {
 			timeingame = System.currentTimeMillis() - starttime;
 			if(!direction.isEmpty()){
 				Direction di = direction.get(0);
+				Direction di2 = direction.get(0);
 				if(timeingame >= di.getTimeInGame()){
 					direction.remove(di);
 					di.work(board.getSnake());
+					di2.workTwo(board.getSnakeTwo());
 				}
 			}
 			board.update();
-			end = board.gameEnd();
+			if(board.gameEnd()){
+				end = true;
+			}
+			else if (board.gameEnd2()){
+				end = true;
+			}
 			delay();
 		}
 	}
@@ -76,6 +82,22 @@ public class Game  {
 		command(new West(timeingame));
 	}
 	
+//--------------------SnakeTwo------------
+	public void turnNorthtwo(){
+		System.out.println("1");
+		commandTwo(new North(timeingame));
+		
+	}
+	public void turnSouthtwo(){
+		commandTwo(new South(timeingame));
+	}
+	public void turnEasttwo(){
+		commandTwo(new East(timeingame));
+	}
+	public void turnWesttwo(){
+		commandTwo(new West(timeingame));
+	}
+	
 	public int getSizeHeight(){
 		return board.getSizeHeight();
 	}
@@ -88,12 +110,26 @@ public class Game  {
 	public long getTimegame(){
 		return timeingame;
 	}
-	public int getsnankeLocateX(int i){
+	public int getSnakeLocateX(int i){
 		return board.getSnake().getSnakeX(i);
 	}
-	public int getsnankeLocateY(int i){
+	public int getSnakeLocateY(int i){
 		return board.getSnake().getSnakeY(i);
 	}
+	public int getSnakesize(){
+		return board.getSnake().getSnakeLenght();
+	}
+//--------------SnakeTwo------------
+	public int getSnakeTwoLocateX(int i){
+		return board.getSnakeTwo().getSnakeX(i);
+	}
+	public int getSnakeTwoLocateY(int i){
+		return board.getSnakeTwo().getSnakeY(i);
+	}
+	public int getSnakeTwoesize(){
+		return board.getSnakeTwo().getSnakeLenght();
+	}
+	
 //	public Locate getSnakeLocate(){
 //		return board.getSnake().getLocate();
 //	}
@@ -103,13 +139,16 @@ public class Game  {
 //	public int getSnakeLocationY(){
 //		return board.getSnake().getLocate().getY();
 //	}
-	public int getSnakesize(){
-		return board.getSnake().getSnakeLenght();
-	}
 	
 	private void command(Direction direct){
 		System.out.println("2");
 		direct.work(board.getSnake());
+		direction.add(direct);
+		
+	}
+	private void commandTwo(Direction direct){
+		System.out.println("2");
+		direct.workTwo(board.getSnakeTwo());
 		direction.add(direct);
 		
 	}

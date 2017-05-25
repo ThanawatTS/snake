@@ -15,11 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
-
-import Gamesnake.Board;
 import Gamesnake.Game;
-
-import Gamesnake.Snake;
 
 
 public class Desktop extends JFrame implements KeyListener, ActionListener{
@@ -28,11 +24,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	private JButton replaybtn;
 	
 	private Game game;
-	private Timer time;
-	private static int speed = 15;
-	
-	
-	private  final static int GridSize = 15;
+	private final static int GridSize = 15;
 	private static int AllGrid = (600 * 600) / (GridSize * GridSize);
 	private Timer render;
 	private int fps = 60;
@@ -89,6 +81,9 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 				if(game.End()&& Alreadyreplay){
 					replaybtn.setEnabled(true);
 				}
+				else if(game.End()&& Alreadyreplay){
+					replaybtn.setEnabled(true);
+				}
 			}
 		};
 		
@@ -127,13 +122,24 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	
 	private void drawSnake(Graphics g){
 		g.setColor(Color.black);
-		int snakelength = game.getSnakesize();
+
 		for (int i = 0; i < game.getSnakesize(); i++) {
             if (i == 0) {
-                g.fillRect(game.getsnankeLocateX(i), game.getsnankeLocateY(i),GridSize, GridSize);
+                g.fillRect(game.getSnakeLocateX(i), game.getSnakeLocateY(i),GridSize, GridSize);
                 
             } else {
-                g.fillRect(game.getsnankeLocateX(i), game.getsnankeLocateY(i),GridSize, GridSize);
+                g.fillRect(game.getSnakeLocateX(i), game.getSnakeLocateY(i),GridSize, GridSize);
+            }
+           
+		}
+		g.setColor(Color.YELLOW);
+		
+		for (int i = 0; i < game.getSnakeTwoesize(); i++) {
+            if (i == 0) {
+                g.fillRect(game.getSnakeTwoLocateX(i), game.getSnakeTwoLocateY(i),GridSize, GridSize);
+                
+            } else {
+                g.fillRect(game.getSnakeTwoLocateX(i), game.getSnakeTwoLocateY(i),GridSize, GridSize);
             }
            
 	}
@@ -190,6 +196,24 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 		}
 		else if (e.getKeyCode() == 40){
 			game.turnSouth();
+			System.out.print("South");
+		}
+		
+//------------------------------------------//
+		if(e.getKeyCode() == 65){
+			System.out.print("west");
+			game.turnWesttwo();
+		}
+		else if (e.getKeyCode() == 68){
+			System.out.print("East");
+			game.turnEasttwo();
+		}
+		else if (e.getKeyCode() == 87){
+			System.out.println("North");
+			game.turnNorthtwo();
+		}
+		else if (e.getKeyCode() == 83){
+			game.turnSouthtwo();
 			System.out.print("South");
 		}
 	}

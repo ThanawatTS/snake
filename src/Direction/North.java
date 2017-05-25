@@ -1,6 +1,7 @@
 package Direction;
 
 import Gamesnake.Snake;
+import Gamesnake.Snaketwo;
 
 public class North extends Direction{
 	
@@ -14,6 +15,12 @@ public class North extends Direction{
 		System.out.println("3");
 		snake.turnNorth();
 		
+	}
+
+	@Override
+	public void workTwo(Snaketwo snake) {
+		// TODO Auto-generated method stub
+		snake.turnNorth();
 	}
 
 	

@@ -2,7 +2,7 @@ package Gamesnake;
 
 import Ui.Desktop;
 
-public class Snake {
+public class Snake implements FatherSnake{
 	
 	private final int[] x = new int[Desktop.getAllGrid()];
 	private final int[] y = new int[Desktop.getAllGrid()];
@@ -15,7 +15,7 @@ public class Snake {
 
 	private static int SnakeLenght = 0; // Stores # of dots / joints the snake has (starts
 	                        // with 3)
-	public Snake(){}
+	
 	
 	public Snake(int a,int b){
 		SnakeLenght = 4;
@@ -47,83 +47,83 @@ public class Snake {
 	    y[0] = i;
 	}
 	
-		public boolean isTurnRight() {
-			return TurnRight;
-		}
-		
-		public void setTurnRight(boolean turnRight) {
-			this.TurnRight = turnRight;
-		}
-		public boolean isTurnLeft() {
-			return TurnLeft;
-		}
-		public void setTurnLeft(boolean turnLeft) {
-			this.TurnLeft = turnLeft;
-		}
-		public boolean isTurnUp() {
-			return TurnUp;
-		}
-		public void setTurnUp(boolean turnUp) {
-			this.TurnUp = turnUp;
-		}
-		public boolean isTurnDown() {
-			return TurnDown;
-		}
-		public void setTurnDown(boolean turnDown) {
-			this.TurnDown = turnDown;
-		}
-		public void turnNorth(){
-			TurnUp = true;
-			TurnDown = false;
-			TurnLeft = false;
-			TurnRight = false;
-		}
-		public void turnSouth(){
-			TurnUp = false;
-			TurnDown = true;
-			TurnLeft = false;
-			TurnRight = false;
-		}
-		public void turnEast(){
-			TurnUp = false;
-			TurnDown = false;
-			TurnLeft = false;
-			TurnRight = true;
-		}
-		public void turnWest(){
-			TurnUp = false;
-			TurnDown = false;
-			TurnLeft = true;
-			TurnRight = false;
-		}
-		public void update() {
-			move();
-		}
-		public void move() {
-		    for (int i = SnakeLenght; i > 0; i--) {
-		        x[i] = x[(i - 1)];
-		        y[i] = y[(i - 1)];
-		    }
+	public boolean isTurnRight() {
+		return TurnRight;
+	}
 
-		    if (TurnLeft) {
-		        x[0] -= Desktop.getGridSize();
-		    }
-		 
-		    if (TurnRight) {
-		        x[0] += Desktop.getGridSize();
-		    }
-		    
-		    if (TurnDown) {
-		        y[0] += Desktop.getGridSize();
-		    }
-		  
-		    if (TurnUp) {
-		        y[0] -= Desktop.getGridSize();
-		    }
+	public void setTurnRight(boolean turnRight) {
+		this.TurnRight = turnRight;
+	}
+	public boolean isTurnLeft() {
+		return TurnLeft;
+	}
+	public void setTurnLeft(boolean turnLeft) {
+		this.TurnLeft = turnLeft;
+	}
+	public boolean isTurnUp() {
+		return TurnUp;
+	}
+	public void setTurnUp(boolean turnUp) {
+		this.TurnUp = turnUp;
+	}
+	public boolean isTurnDown() {
+		return TurnDown;
+	}
+	public void setTurnDown(boolean turnDown) {
+		this.TurnDown = turnDown;
+	}
+	public void turnNorth(){
+		TurnUp = true;
+		TurnDown = false;
+		TurnLeft = false;
+		TurnRight = false;
+	}
+	public void turnSouth(){
+		TurnUp = false;
+		TurnDown = true;
+		TurnLeft = false;
+		TurnRight = false;
+	}
+	public void turnEast(){
+		TurnUp = false;
+		TurnDown = false;
+		TurnLeft = false;
+		TurnRight = true;
+	}
+	public void turnWest(){
+		TurnUp = false;
+		TurnDown = false;
+		TurnLeft = true;
+		TurnRight = false;
+	}
+	public void update() {
+		move();
+	}
+	public void move() {
+		for (int i = SnakeLenght; i > 0; i--) {
+			x[i] = x[(i - 1)];
+			y[i] = y[(i - 1)];
+		}
+
+		if (TurnLeft) {
+			x[0] -= Desktop.getGridSize();
+		}
+
+		if (TurnRight) {
+			x[0] += Desktop.getGridSize();
+		}
+
+		if (TurnDown) {
+			y[0] += Desktop.getGridSize();
+		}
+
+		if (TurnUp) {
+			y[0] -= Desktop.getGridSize();
+		}
+	}
+
+
 }
-
-		
-		}
 //
 //import Ui.Desktop;
 //

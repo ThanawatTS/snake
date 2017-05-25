@@ -1,6 +1,7 @@
 package Direction;
 
 import Gamesnake.Snake;
+import Gamesnake.Snaketwo;
 
 public abstract class Direction {
 
@@ -14,4 +15,5 @@ public abstract class Direction {
 		return timeingame;
 	}
 	public abstract void work(Snake snake);
+	public abstract void workTwo(Snaketwo snake);
 }
