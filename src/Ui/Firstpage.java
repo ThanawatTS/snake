@@ -1,9 +1,11 @@
 package Ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
@@ -34,13 +36,26 @@ public class Firstpage extends JFrame implements KeyListener{
 		    setContentPane(new JLabel(new ImageIcon("src/Image/Snakepage3.png")));
 		   
 		    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setBounds(350, 50, 620, 650);
+			setBounds(350, 50, 617, 632);
 			getContentPane().setLayout(null);
 			
-			JButton Entergame = new JButton("replay");
-			Entergame.setBounds(160, 350, 250, 20);
+			JButton Entergame = new JButton("Spacebar for exit");
+			Entergame.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					System.exit(0);
+				}
+
+			});
+			Entergame.setBackground(Color.GRAY);
+			Entergame.setForeground(Color.PINK);
+			Entergame.setFont(new Font("Tahoma", Font.BOLD, 20));
+			
+			Entergame.setBounds(160, 350, 250, 50);
 			getContentPane().add(Entergame);
-			pack();
+			
 			
 			this.addKeyListener(this);
 			Entergame.addKeyListener(this);
@@ -61,9 +76,7 @@ public class Firstpage extends JFrame implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == 32){
-			this.dispose();	
-			Desktop dk = new Desktop();
-			dk.setVisible(false);
+			System.exit(0);
 		}
 	}
 

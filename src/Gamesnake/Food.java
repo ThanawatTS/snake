@@ -5,7 +5,11 @@ public class Food {
 
 	private int foodx;
 	private int foody;
-
+	
+	private int[] keepfoodx = new int[20];
+	private int[] keepfoody = new int[20];
+	
+	
 	public Food()
 	{}
 	public Food(int x ,int y)
@@ -47,7 +51,19 @@ public class Food {
 		return randomNumber*15;
 	}
 	
+	public int getKeepfoodx(int index) {
+		return keepfoodx[index];
+	}
+	public void setKeepfoodx(int index,int X) {
+		keepfoodx[index] = X;
+	}
 	
+	public int getKeepfoody(int index) {
+		return keepfoody[index];
+	}
+	public void setKeepfoody(int index,int Y) {
+		keepfoody[index] = Y;
+	}
 	
 	
 	

@@ -8,14 +8,13 @@ public class Snaketwo implements FatherSnake{
 	private final int[] x = new int[Desktop.getAllGrid()];
 	private final int[] y = new int[Desktop.getAllGrid()];
 
-	// Stores direction of our snake
+
 	private boolean TurnRight=false;
 	private boolean TurnLeft=false;
 	private boolean TurnUp=false;
 	private boolean TurnDown=false;
 
-	private static int SnakeLenght = 0; // Stores # of dots / joints the snake has (starts
-	                        // with 3)
+	private static int SnakeLenght;
 	
 	
 	public Snaketwo(int a,int b){

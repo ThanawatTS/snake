@@ -1,37 +1,43 @@
 package Gamesnake;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import Direction.Direction;
 import Direction.East;
 import Direction.North;
 import Direction.South;
 import Direction.West;
-import Ui.Desktop;
 import Ui.Firstpage;
+
 
 public class Game  {
 
 	private Board board;
 	private Long timeingame;
 	private Long starttime;
-	private boolean end;
+	public static final long DELAY = 45;
 	private int count=0;
-	private Food food = new Food();
-	private Snake snake1;
-	private int[] keepfoodx = new int[20];
-	private int[] keepfoody = new int[20];
 	private int keepfood=1;
-	private Snaketwo snake2;
-	public static final long DELAY = 25;
+	
+	private boolean end;
+	
+	private Food food = new Food();
+	Firstpage fpage = new Firstpage();
+	
+
+	
 	private List<Direction> direction = new ArrayList<Direction>();
 	private List<Direction> direction2 = new ArrayList<Direction>();
-	Firstpage fpage = new Firstpage();
 	
 	
 	public Game(){
 		board = new Board();
 	}
+
 	public void start(){
 		board.start();
 		end = false;
@@ -41,23 +47,29 @@ public class Game  {
 			if(board.gameEnd()){
 				end = true;
 				setCount(2);	
-				fpage.setVisible(true);
+				 JOptionPane.showMessageDialog(null, "Player 2 Win!!!\n Score: "+(getSnakeTwoesize() -4),"The Winner", JOptionPane.INFORMATION_MESSAGE);
+				 System.out.println(getSnakesize());
 			}
 			else if (board.gameEnd2()){
 				end = true;
 				setCount(2);
-				fpage.setVisible(true);
+				JOptionPane.showMessageDialog(null, "Player 1 Win!!!\n Score: "+(getSnakesize() -4),"The Winner", JOptionPane.INFORMATION_MESSAGE);
+				 System.out.println(getSnakesize());
 			}
-			else if(board.SnakeEnd())
+			else if(board.SnakeEnd1())
 			{
 				end=true;
-				fpage.setVisible(true);
+				 JOptionPane.showMessageDialog(null, "Player 2 Win!!!\n Score: "+(getSnakeTwoesize() -4),"The Winner", JOptionPane.INFORMATION_MESSAGE);
+				 System.out.println(getSnakesize());
 			}
-			
-			
+			else if(board.SnakeEnd2())
+			{
+				end=true;
+				JOptionPane.showMessageDialog(null, "Player 1 Win!!!\n Score: "+(getSnakesize() -4),"The Winner", JOptionPane.INFORMATION_MESSAGE);
+				 System.out.println(getSnakesize());
+			}
 			timeingame = System.currentTimeMillis() - starttime;
 			delay();
-			
 		}
 	}
 	
@@ -85,8 +97,7 @@ public class Game  {
 				}
 			}
 			
-			else if(!direction.isEmpty()&&!direction.isEmpty())
-			{
+			else if(!direction.isEmpty()&&!direction.isEmpty()){
 				Direction di = direction.get(0);
 				Direction di2 = direction2.get(0);
 				if(timeingame >= di.getTimeInGame()&&timeingame >= di2.getTimeInGame()){
@@ -94,34 +105,35 @@ public class Game  {
 				di.work(board.getSnake());
 				direction2.remove(di2);
 				di2.workTwo(board.getSnakeTwo());
+				}
 			}
-			}
-			
-			
-			
-			 
 			board.update();
 			if(board.gameEnd()){
+				fpage.setVisible(true);
 				end = true;
-				
-				
+				setCount(2);	
 			}
 			else if (board.gameEnd2()){
+				fpage.setVisible(true);
 				end = true;
-				
+				setCount(2);
 			}
-			else if(board.SnakeEnd())
+			else if(board.SnakeEnd1())
 			{
-				end=true;	
-				
+				fpage.setVisible(true);
+				end=true;
+			}
+			else if(board.SnakeEnd2())
+			{
+				fpage.setVisible(true);
+				end=true;
 			}
 			delay();
 		}
 	}
 	
-	
 	public void turnNorth(){
-		System.out.println("1");
+		
 		command(new North(timeingame));
 		
 	}
@@ -137,7 +149,7 @@ public class Game  {
 	
 //--------------------SnakeTwo------------
 	public void turnNorthtwo(){
-		System.out.println("1");
+		
 		commandTwo(new North(timeingame));
 		
 	}
@@ -197,17 +209,17 @@ public class Game  {
 	}
 	
 	public int getKeepfoodx(int index) {
-		return keepfoodx[index];
+		return food.getKeepfoodx(index);
 	}
 	public void setKeepfoodx(int index,int X) {
-		keepfoodx[index] = X;
+		food.setKeepfoodx(index,X) ;
 	}
 	
 	public int getKeepfoody(int index) {
-		return keepfoody[index];
+		return food.getKeepfoody(index);
 	}
 	public void setKeepfoody(int index,int Y) {
-		keepfoody[index] = Y;
+		food.setKeepfoody(index,Y) ;
 	}
 	
 	public void setFoodx(int foodx) {
@@ -216,7 +228,16 @@ public class Game  {
 	public void setFoody(int foody) {
 		food.setFoody(foody); 
 	}
+//======================== Barricade ==========================
 
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void setCount(int count) {
 		this.count = count;
@@ -260,7 +281,7 @@ public class Game  {
 		else if(board.getSnakeTwo().getSnakeX(0)==getFoodX()&&board.getSnakeTwo().getSnakeY(0)==getFoodY())
 		{
 			board.getSnakeTwo().setSnakeLenght(board.getSnakeTwo().getSnakeLenght()+1);
-			if(end) {setCount(2);keepfood++;System.out.print("KeepFoodGame == "+keepfood);}
+			if(end) {setCount(2);keepfood++;}
 			 else if(!end){
 					setCount(0);
 					}

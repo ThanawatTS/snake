@@ -13,18 +13,16 @@ public class Board {
 		start();
 	}
 	public void start(){
-		snake = new Snake(Height/2,Width/2);
-		snakeTwo = new Snaketwo(Height/4,Width/4);
-		
+		snake = new Snake((Width /2)-150 , 450);
+		snakeTwo = new Snaketwo(450,450);
+		snake.turnNorth();
+		snakeTwo.turnNorth();
 		
 	}
 	public boolean gameEnd(){
 		int snakeX = snake.getSnakeX(0);
 		int snakeY = snake.getSnakeY(0);
 		return ( snakeX < 15 || snakeY < 15 || snakeX > Width - 30 || snakeY > Height - 30);
-	
-	
-	
 	}
 	
 	public boolean gameEnd2(){
@@ -33,17 +31,48 @@ public class Board {
 		return ( snakeX < 15 || snakeY < 15 || snakeX > Width - 30 || snakeY > Height - 30);
 	}
 	
+	
+	public boolean SnakeEnd1()
+	{
+		for(int i=0 ; i<snakeTwo.getSnakeLenght();i++){
+			if(snake.getSnakeX(0)==snakeTwo.getSnakeX(i)&&snake.getSnakeY(0)==snakeTwo.getSnakeY(i))
+			{
+				
+				return true;
+			}
+			else if(snakeTwo.getSnakeX(0)==snake.getSnakeX(i)&&snakeTwo.getSnakeY(0)==snake.getSnakeY(i))
+			{
+				
+				return true;
+			}
+		}
+		 return false;
+	}
+	
+	public boolean SnakeEnd2()
+	{
+		for(int i=0 ; i<snakeTwo.getSnakeLenght();i++){
+			if(snakeTwo.getSnakeX(0)==snake.getSnakeX(i)&&snakeTwo.getSnakeY(0)==snake.getSnakeY(i))
+			{
+				
+				return true;
+			}
+		}
+		 return false;
+		
+	}
+	
 	public boolean SnakeEnd()
 	{
 		for(int i=0 ; i<snakeTwo.getSnakeLenght();i++){
 			if(snake.getSnakeX(0)==snakeTwo.getSnakeX(i)&&snake.getSnakeY(0)==snakeTwo.getSnakeY(i))
 			{
-				System.out.println("a"+snakeTwo.getSnakeX(i));
+				
 				return true;
 			}
 			else if(snakeTwo.getSnakeX(0)==snake.getSnakeX(i)&&snakeTwo.getSnakeY(0)==snake.getSnakeY(i))
 			{
-				System.out.println("a"+snakeTwo.getSnakeX(i));
+				
 				return true;
 			}
 		}
@@ -52,9 +81,7 @@ public class Board {
 	public void update(){
 		snake.update();
 		snakeTwo.update();
-		for(int i=0 ; i<snakeTwo.getSnakeLenght();i++){
-			System.out.println("a"+snakeTwo.getSnakeX(i));
-		}
+		
 		}
 	
 	public Snaketwo getSnakeTwo(){
