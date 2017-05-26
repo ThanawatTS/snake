@@ -29,7 +29,7 @@ Supawit Working on</br>
 <br /> 
 <br /> 
 <br /> 
-We using Command Pattern Principle // Singleton </br>
+We using Command Pattern Principle and Singleton </br>
 and </br>
 We Single responsibility priciple, Open and Close principle , interface ingretation principle </br>
 <br /> 
