@@ -4,28 +4,44 @@ public class Board {
 
 	private Snake snake;
 	private Snaketwo snakeTwo;
+	private Food food = new Food();
+	private Game game ;
+	
 	private int Height = 600;
 	private int Width = 600;
 	public Board(){
 		start();
 	}
 	public void start(){
-		snake = new Snake(600/2,600/2);
-		snakeTwo = new Snaketwo(150 , 150);
-		snake.turnEast();
-		snakeTwo.turnEast();
+		snake = new Snake(Width/2,Height/2);
+		snakeTwo = new Snaketwo(Width/4,Height/4);
 		
 	}
+	
 	public boolean gameEnd(){
 		int snakeX = snake.getSnakeX(0);
 		int snakeY = snake.getSnakeY(0);
-		return ( snakeX < 15 || snakeY < 15 || snakeX > Width - 30 || snakeY > Height - 30);
+		return ( snakeX < 15 || snakeY < 15 || snakeY > Width - 30 || snakeX > Height - 30);
 	}
 	public boolean gameEnd2(){
 		int snakeX = snakeTwo.getSnakeX(0);
 		int snakeY = snakeTwo.getSnakeY(0);
-		return ( snakeX < 15 || snakeY < 15 || snakeX > Width - 30 || snakeY > Height - 30);
+		return ( snakeX < 15 || snakeY < 15 || snakeY > Width - 30 || snakeX > Height - 30);
 	}
+	public boolean SnakeEatSnake(){
+		for(int i = 0 ; i < snake.getSnakeLenght() ; i++){
+			if(snakeTwo.getSnakeX(0) == snake.getSnakeX(i)){
+				return true;
+			}
+		}
+		for(int i = 0 ; i < snakeTwo.getSnakeLenght() ; i++ ){
+			if(snake.getSnakeX(0)==snakeTwo.getSnakeX(i) || snake.getSnakeY(0) == snakeTwo.getSnakeY(i)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void update(){
 		snake.update();
 		snakeTwo.update();
@@ -41,6 +57,9 @@ public class Board {
 	}
 	public int getSIzeWidth(){
 		return Width;
+	}
+	public Food getFood(){
+		return food;
 	}
 	
 }

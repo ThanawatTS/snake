@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,13 +28,15 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	private final static int GridSize = 15;
 	private static int AllGrid = (600 * 600) / (GridSize * GridSize);
 	private Timer render;
-	private int fps = 60;
+	private int fps = 100;
 	private boolean Alreadyreplay = true;
 	
 	public Desktop(){
 		game = new Game();
+		
 		initCompo();
 		initControl();
+
 		initRender();
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -50,7 +53,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 			}
 		};
 		
-		main.setPreferredSize(new Dimension(game.getSizeHeight(),game.getSizeWidth()));
+		main.setPreferredSize(new Dimension(game.getSizeWidth(),game.getSizeHeight()));
 		main.setDoubleBuffered(true);
 		add(main);
 		
@@ -69,6 +72,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 		
 	}
 	
+
 	private void initRender(){
 		
 		render = new Timer(1000/ fps, this);
@@ -100,12 +104,13 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 		paintBackground(g);
 		paintGrids(g);
 		drawSnake(g);
+		drawFood(g);
 	}
 	
 	private void paintBackground(Graphics g){
 		
 		g.setColor(Color.orange);
-		g.fillRect(0, 0, game.getSizeHeight(),game.getSizeWidth());
+		g.fillRect(0, 0, game.getSizeWidth(),game.getSizeHeight());
 	}
 	
 	private void paintGrids(Graphics g){
@@ -140,28 +145,30 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
                 
             } else {
                 g.fillRect(game.getSnakeTwoLocateX(i), game.getSnakeTwoLocateY(i),GridSize, GridSize);
-            }
-           
-	}
-//		snake.setSnakeLenght(4); 
-//		   for (int i = 0; i < snake.getSnakeLenght(); i++) {
-//			   snake.setSnakeX((Height / 2)-(i*GridSize));
-//		       snake.setSnakeY(Width / 2);
-//		   }
-//		   for (int i = 0; i < snake.getSnakeLenght(); i++) {
-//			   if (i == 0) {
-//				   g.setColor(Color.black);
-//				g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),GridSize, GridSize);
-//
-//			   } else {
-//				g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),GridSize, GridSize);
-//			   }
-//		   }
-		
-	
+            }   
+		}
 	}
 	
+	private void loadImages() {
+		ImageIcon iia = new ImageIcon("apple.png");
+	}
+	private void drawFood(Graphics g){
+		g.setColor(Color.green);
+		int keep=-1;
+		if(game.getCount()==0){
+		game.CreateFood();
+		keep++;
+		game.setCount(1);
+		game.setKeepfoodx(keep,game.getFoodX());
+		game.setKeepfoodx(keep,game.getFoodY());
+
+		}
+		int x = game.getFoodX();
+		int y = game.getFoodY();
 	
+		g.fillRect(x, y, GridSize, GridSize);
+			
+		}
 	
 	public void start(){
 		game.start();
@@ -240,7 +247,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		game.SnakeEatFood();
 		
 	}
 	

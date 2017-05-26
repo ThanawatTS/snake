@@ -15,13 +15,14 @@ public class Game  {
 	private Long starttime;
 	private boolean end;
 	private int count=0;
-	//private Food food = new Food();
+	private Food food = new Food();
 	private Snake snake1;
+	private int[] keepfoodx = new int[20];
+	private int[] keepfoody = new int[20];
 	private Snaketwo snake2;
-	public static final long DELAY = 55;
+	public static final long DELAY = 25;
 	private List<Direction> direction = new ArrayList<Direction>();
 	private List<Direction> direction2 = new ArrayList<Direction>();
-	
 	public Game(){
 		board = new Board();
 	}
@@ -35,6 +36,9 @@ public class Game  {
 				end = true;
 			}
 			else if (board.gameEnd2()){
+				end = true;
+			}
+			else if (board.SnakeEatSnake()){
 				end = true;
 			}
 			
@@ -68,7 +72,7 @@ public class Game  {
 				}
 			}
 			
-			else if(!direction.isEmpty()&&!direction2.isEmpty())
+			else if(!direction.isEmpty()&&!direction.isEmpty())
 			{
 				Direction di = direction.get(0);
 				Direction di2 = direction2.get(0);
@@ -77,16 +81,20 @@ public class Game  {
 				di.work(board.getSnake());
 				direction2.remove(di2);
 				di2.workTwo(board.getSnakeTwo());
-				
-				
 			}
 			}
+			
+			
+			
 			 
 			board.update();
 			if(board.gameEnd()){
 				end = true;
 			}
 			else if (board.gameEnd2()){
+				end = true;
+			}
+			else if (board.SnakeEatSnake()){
 				end = true;
 			}
 			delay();
@@ -164,38 +172,62 @@ public class Game  {
 		return count;
 	}
 
-//	public void CreateFood()
-//	{
-//		food.CreateFood();
-//	}
-//	
-//	public void setFoodx(int foodx) {
-//		food.setFoodx(foodx); 
-//	}
-//	public void setFoody(int foody) {
-//		food.setFoody(foody); 
-//	}
-//
-//	
+	public void CreateFood()
+	{
+		food.CreateFood();
+	}
+	
+	public int[] getKeepfoodx() {
+		return keepfoodx;
+	}
+	public void setKeepfoodx(int index,int X) {
+		keepfoodx[index] = X;
+	}
+	
+	public int[] getKeepfoody() {
+		return keepfoody;
+	}
+	public void setKeepfoody(int index,int Y) {
+		keepfoody[index] = Y;
+	}
+	
+	public void setFoodx(int foodx) {
+		food.setFoodx(foodx); 
+	}
+	public void setFoody(int foody) {
+		food.setFoody(foody); 
+	}
+
+	
 	public void setCount(int count) {
 		this.count = count;
 	}
 
-//	public int getFoodX()
-//	{
-//		return food.getFoodx();
-//	}
-//	
-//	public int getFoodY()
-//	{
-//		return food.getFoody();
-//	}
-//	
-//	public void checkSnakeEatFood()
-//	{
-//		System.out.print("check111");
-//		board.SnakeEatFood();
-//	}
+	public int getFoodX()
+	{
+		return food.getFoodx();
+	}
+	
+	public int getFoodY()
+	{
+		return food.getFoody();
+	}
+	
+
+	public void SnakeEatFood()
+	{
+		
+		if(board.getSnake().getSnakeX(0)==getFoodX()&&board.getSnake().getSnakeY(0)==getFoodY())
+		{
+			board.getSnake().setSnakeLenght(board.getSnake().getSnakeLenght()+1);
+			setCount(0);
+		}	
+		else if(board.getSnakeTwo().getSnakeX(0)==getFoodX()&&board.getSnakeTwo().getSnakeY(0)==getFoodY())
+		{
+			board.getSnakeTwo().setSnakeLenght(board.getSnakeTwo().getSnakeLenght()+1);
+			setCount(0);
+		}
+	}
 	
 	
 	
