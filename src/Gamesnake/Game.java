@@ -7,6 +7,8 @@ import Direction.East;
 import Direction.North;
 import Direction.South;
 import Direction.West;
+import Ui.Desktop;
+import Ui.Firstpage;
 
 public class Game  {
 
@@ -19,10 +21,14 @@ public class Game  {
 	private Snake snake1;
 	private int[] keepfoodx = new int[20];
 	private int[] keepfoody = new int[20];
+	private int keepfood=1;
 	private Snaketwo snake2;
 	public static final long DELAY = 25;
 	private List<Direction> direction = new ArrayList<Direction>();
 	private List<Direction> direction2 = new ArrayList<Direction>();
+	Firstpage fpage = new Firstpage();
+	
+	
 	public Game(){
 		board = new Board();
 	}
@@ -34,13 +40,20 @@ public class Game  {
 			board.update();
 			if(board.gameEnd()){
 				end = true;
+				setCount(2);	
+				fpage.setVisible(true);
 			}
 			else if (board.gameEnd2()){
 				end = true;
+				setCount(2);
+				fpage.setVisible(true);
 			}
-			else if (board.SnakeEatSnake()){
-				end = true;
+			else if(board.SnakeEnd())
+			{
+				end=true;
+				fpage.setVisible(true);
 			}
+			
 			
 			timeingame = System.currentTimeMillis() - starttime;
 			delay();
@@ -90,12 +103,17 @@ public class Game  {
 			board.update();
 			if(board.gameEnd()){
 				end = true;
+				
+				
 			}
 			else if (board.gameEnd2()){
 				end = true;
+				
 			}
-			else if (board.SnakeEatSnake()){
-				end = true;
+			else if(board.SnakeEnd())
+			{
+				end=true;	
+				
 			}
 			delay();
 		}
@@ -140,6 +158,7 @@ public class Game  {
 		return board.getSIzeWidth();
 	}
 	public boolean End(){
+		
 		return end;
 	}
 	public long getTimegame(){
@@ -177,15 +196,15 @@ public class Game  {
 		food.CreateFood();
 	}
 	
-	public int[] getKeepfoodx() {
-		return keepfoodx;
+	public int getKeepfoodx(int index) {
+		return keepfoodx[index];
 	}
 	public void setKeepfoodx(int index,int X) {
 		keepfoodx[index] = X;
 	}
 	
-	public int[] getKeepfoody() {
-		return keepfoody;
+	public int getKeepfoody(int index) {
+		return keepfoody[index];
 	}
 	public void setKeepfoody(int index,int Y) {
 		keepfoody[index] = Y;
@@ -213,32 +232,52 @@ public class Game  {
 		return food.getFoody();
 	}
 	
-
+	public int getkeepfood()
+	{
+		return keepfood;
+		
+	}
+	
 	public void SnakeEatFood()
 	{
 		
 		if(board.getSnake().getSnakeX(0)==getFoodX()&&board.getSnake().getSnakeY(0)==getFoodY())
 		{
 			board.getSnake().setSnakeLenght(board.getSnake().getSnakeLenght()+1);
-			setCount(0);
+			 
+			 if(getCount()==1){
+					setCount(0);
+					}
+			 else if(getCount()==3)
+			 {
+				 setCount(2);
+				
+				 keepfood++;
+			 }
+			 
+		
 		}	
 		else if(board.getSnakeTwo().getSnakeX(0)==getFoodX()&&board.getSnakeTwo().getSnakeY(0)==getFoodY())
 		{
 			board.getSnakeTwo().setSnakeLenght(board.getSnakeTwo().getSnakeLenght()+1);
-			setCount(0);
+			if(end) {setCount(2);keepfood++;System.out.print("KeepFoodGame == "+keepfood);}
+			 else if(!end){
+					setCount(0);
+					}
+			 if(getCount()==1){
+					setCount(0);
+					}
 		}
 	}
 	
 	
 	
 	private void command(Direction direct){
-		System.out.println("2");
 		direct.work(board.getSnake());
 		direction.add(direct);
 		
 	}
 	private void commandTwo(Direction direct){
-		System.out.println("2aaa");
 		direct.workTwo(board.getSnakeTwo());
 		direction2.add(direct);
 		

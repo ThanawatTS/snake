@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-
+import Gamesnake.Game;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -27,18 +27,17 @@ import javax.swing.JLabel;
 public class Firstpage extends JFrame implements KeyListener{
 	
 	Image img;
-	JButton b1;
-	JLabel l1;
+	private Game game;
 	
 	public Firstpage(){
 		
 		    setContentPane(new JLabel(new ImageIcon("src/Image/Snakepage3.png")));
 		   
 		    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setBounds(350, 50, 600, 600);
+			setBounds(350, 50, 620, 650);
 			getContentPane().setLayout(null);
 			
-			JButton Entergame = new JButton("Space-Bar");
+			JButton Entergame = new JButton("replay");
 			Entergame.setBounds(160, 350, 250, 20);
 			getContentPane().add(Entergame);
 			pack();
@@ -58,21 +57,15 @@ public class Firstpage extends JFrame implements KeyListener{
 		
 	}
 
-
-
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == 32){
-			this.dispose();
-			Desktop desktop = new Desktop();
-			desktop.setVisible(true);
+			this.dispose();	
+			Desktop dk = new Desktop();
+			dk.setVisible(false);
 		}
 	}
-
-
-
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
@@ -81,16 +74,11 @@ public class Firstpage extends JFrame implements KeyListener{
 	}
 
 
-
-
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
 
 	
 }

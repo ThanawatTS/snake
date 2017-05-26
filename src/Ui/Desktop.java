@@ -22,20 +22,22 @@ import Gamesnake.Game;
 public class Desktop extends JFrame implements KeyListener, ActionListener{
 
 	private JPanel main;
-	private JButton replaybtn;
+	private JButton replaybtn,start;
 	
 	private Game game;
 	private final static int GridSize = 15;
 	private static int AllGrid = (600 * 600) / (GridSize * GridSize);
 	private Timer render;
 	private int fps = 100;
+	private int keep=0;
 	private boolean Alreadyreplay = true;
 	
 	public Desktop(){
 		game = new Game();
-		setBounds(300, 50, 250, 20);
+		
 		initCompo();
 		initControl();
+		setBounds(350, 50, 600, 600);
 		initRender();
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -52,7 +54,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 			}
 		};
 		
-		main.setPreferredSize(new Dimension(game.getSizeWidth(),game.getSizeHeight()));
+		main.setPreferredSize(new Dimension(game.getSizeHeight(),game.getSizeWidth()));
 		main.setDoubleBuffered(true);
 		add(main);
 		
@@ -68,6 +70,20 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 		});
 		replaybtn.setEnabled(false);
 		add(replaybtn, BorderLayout.SOUTH);
+		
+//		start = new JButton("Start");
+//		start.addActionListener(new ActionListener(){
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				// TODO Auto-generated method stub
+//				start();
+//			}
+//			
+//		});
+//		start.setEnabled(true);
+//		add(start, BorderLayout.NORTH);
+		
 		
 	}
 	
@@ -109,7 +125,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	private void paintBackground(Graphics g){
 		
 		g.setColor(Color.orange);
-		g.fillRect(0, 0, game.getSizeWidth(),game.getSizeHeight());
+		g.fillRect(0, 0, game.getSizeHeight(),game.getSizeWidth());
 	}
 	
 	private void paintGrids(Graphics g){
@@ -148,24 +164,41 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 		}
 	}
 	
-	private void loadImages() {
-		ImageIcon iia = new ImageIcon("apple.png");
-	}
+	
 	private void drawFood(Graphics g){
 		g.setColor(Color.green);
-		int keep=-1;
+		int x=0;
+		int y=0;
 		if(game.getCount()==0){
 		game.CreateFood();
-		keep++;
 		game.setCount(1);
-		game.setKeepfoodx(keep,game.getFoodX());
-		game.setKeepfoodx(keep,game.getFoodY());
-
+		keep++;
+		System.out.println("keep12345");
 		}
-		int x = game.getFoodX();
-		int y = game.getFoodY();
-	
+		
+		else if(game.getCount()==2)
+		{
+		System.out.println("keep"+game.getkeepfood());
+		game.setFoodx(game.getKeepfoodx(game.getkeepfood()));
+		game.setFoody(game.getKeepfoody(game.getkeepfood()));	
+		System.out.println(game.getKeepfoodx(game.getkeepfood()));
+		System.out.println(game.getKeepfoody(game.getkeepfood()));	
+		game.setCount(3);
+		}
+		
+		
+		
+		x = game.getFoodX();
+		y = game.getFoodY();
+		game.setKeepfoodx(keep, x);
+		game.setKeepfoody(keep, y);
+		
+
+		
+		
 		g.fillRect(x, y, GridSize, GridSize);
+	
+		
 			
 		}
 	
@@ -189,38 +222,31 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == 37){
-			System.out.print("west");
 			game.turnWest();
 		}
 		else if (e.getKeyCode() == 39){
-			System.out.print("East");
 			game.turnEast();
 		}
 		else if (e.getKeyCode() == 38){
-			System.out.println("North");
 			game.turnNorth();
 		}
 		else if (e.getKeyCode() == 40){
 			game.turnSouth();
-			System.out.print("South");
 		}
 		
 //------------------------------------------//
 		if(e.getKeyCode() == 65){
-			System.out.print("west");
 			game.turnWesttwo();
 		}
 		else if (e.getKeyCode() == 68){
-			System.out.print("East");
 			game.turnEasttwo();
 		}
 		else if (e.getKeyCode() == 87){
-			System.out.println("North");
+
 			game.turnNorthtwo();
 		}
 		else if (e.getKeyCode() == 83){
 			game.turnSouthtwo();
-			System.out.print("South");
 		}
 	}
 
@@ -257,7 +283,6 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	
 	public static void main(String[] args){
 		Desktop desktop = new Desktop();
-		
 		desktop.setVisible(true);
 		desktop.start();
 	}
