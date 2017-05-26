@@ -12,6 +12,8 @@ public class Board {
 	public void start(){
 		snake = new Snake(600/2,600/2);
 		snakeTwo = new Snaketwo(150 , 150);
+		snake.turnEast();
+		snakeTwo.turnEast();
 		
 	}
 	public boolean gameEnd(){

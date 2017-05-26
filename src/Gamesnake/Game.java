@@ -14,9 +14,13 @@ public class Game  {
 	private Long timeingame;
 	private Long starttime;
 	private boolean end;
-	
-	public static final long DELAY = 25;
+	private int count=0;
+	//private Food food = new Food();
+	private Snake snake1;
+	private Snaketwo snake2;
+	public static final long DELAY = 55;
 	private List<Direction> direction = new ArrayList<Direction>();
+	private List<Direction> direction2 = new ArrayList<Direction>();
 	
 	public Game(){
 		board = new Board();
@@ -46,15 +50,38 @@ public class Game  {
 		starttime = System.currentTimeMillis();
 		while(!end){
 			timeingame = System.currentTimeMillis() - starttime;
-			if(!direction.isEmpty()){
+			
+			
+			if(!direction.isEmpty()&&direction2.isEmpty()){
 				Direction di = direction.get(0);
-				Direction di2 = direction.get(0);
 				if(timeingame >= di.getTimeInGame()){
-					direction.remove(di);
-					di.work(board.getSnake());
+				direction.remove(di);
+				di.work(board.getSnake());
+				}	
+			}
+			
+			else if(!direction2.isEmpty()&&direction.isEmpty()){		
+					Direction di2 = direction2.get(0);
+					if(timeingame >= di2.getTimeInGame()){
+					direction2.remove(di2);
 					di2.workTwo(board.getSnakeTwo());
 				}
 			}
+			
+			else if(!direction.isEmpty()&&!direction2.isEmpty())
+			{
+				Direction di = direction.get(0);
+				Direction di2 = direction2.get(0);
+				if(timeingame >= di.getTimeInGame()&&timeingame >= di2.getTimeInGame()){
+				direction.remove(di);
+				di.work(board.getSnake());
+				direction2.remove(di2);
+				di2.workTwo(board.getSnakeTwo());
+				
+				
+			}
+			}
+			 
 			board.update();
 			if(board.gameEnd()){
 				end = true;
@@ -130,15 +157,47 @@ public class Game  {
 		return board.getSnakeTwo().getSnakeLenght();
 	}
 	
-//	public Locate getSnakeLocate(){
-//		return board.getSnake().getLocate();
+	
+//=================food===================
+	
+	public int getCount() {
+		return count;
+	}
+
+//	public void CreateFood()
+//	{
+//		food.CreateFood();
 //	}
-//	public int getSnakeLocationX(){
-//		return board.getSnake().getLocate().getX();
+//	
+//	public void setFoodx(int foodx) {
+//		food.setFoodx(foodx); 
 //	}
-//	public int getSnakeLocationY(){
-//		return board.getSnake().getLocate().getY();
+//	public void setFoody(int foody) {
+//		food.setFoody(foody); 
 //	}
+//
+//	
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+//	public int getFoodX()
+//	{
+//		return food.getFoodx();
+//	}
+//	
+//	public int getFoodY()
+//	{
+//		return food.getFoody();
+//	}
+//	
+//	public void checkSnakeEatFood()
+//	{
+//		System.out.print("check111");
+//		board.SnakeEatFood();
+//	}
+	
+	
 	
 	private void command(Direction direct){
 		System.out.println("2");
@@ -147,9 +206,9 @@ public class Game  {
 		
 	}
 	private void commandTwo(Direction direct){
-		System.out.println("2");
+		System.out.println("2aaa");
 		direct.workTwo(board.getSnakeTwo());
-		direction.add(direct);
+		direction2.add(direct);
 		
 	}
 	private void delay(){
@@ -162,6 +221,7 @@ public class Game  {
 		
 	}
 
+	
 	
 	
 }
