@@ -7,7 +7,7 @@ Snake Game
 - Make Map done ++done<br />
 - Make Snake Can Move ++done<br />
 - Make Snake Lenght +1 when eat food ++done<br />
-- Snake die +done<br />
+- Snake die ++done<br />
 <br />
 <br />
 <br />
