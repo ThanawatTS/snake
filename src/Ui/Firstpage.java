@@ -1,14 +1,22 @@
 package Ui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,21 +24,29 @@ import javax.swing.JLabel;
 
 
 
-public class Firstpage extends JFrame {
+public class Firstpage extends JFrame implements KeyListener{
 	
 	Image img;
 	JButton b1;
 	JLabel l1;
 	
 	public Firstpage(){
-		 	setLayout(new BorderLayout());
+		
 		    setContentPane(new JLabel(new ImageIcon("src/Image/Snakepage3.png")));
-		    setLayout(new FlowLayout());
-		    l1=new JLabel("Here is a button");
-		    b1=new JButton("I am a button");
 		   
-		    
-		    pack();
+		    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setBounds(350, 50, 600, 600);
+			getContentPane().setLayout(null);
+			
+			JButton Entergame = new JButton("Space-Bar");
+			Entergame.setBounds(160, 350, 250, 20);
+			getContentPane().add(Entergame);
+			pack();
+			
+			this.addKeyListener(this);
+			Entergame.addKeyListener(this);
+			
+			
 	}
 	
 	
@@ -41,4 +57,40 @@ public class Firstpage extends JFrame {
 		fpage.setVisible(true);
 		
 	}
+
+
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getKeyCode() == 32){
+			this.dispose();
+			Desktop desktop = new Desktop();
+			desktop.setVisible(true);
+		}
+	}
+
+
+
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	
 }

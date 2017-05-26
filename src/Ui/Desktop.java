@@ -33,10 +33,9 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	
 	public Desktop(){
 		game = new Game();
-		
+		setBounds(300, 50, 250, 20);
 		initCompo();
 		initControl();
-
 		initRender();
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -258,6 +257,7 @@ public class Desktop extends JFrame implements KeyListener, ActionListener{
 	
 	public static void main(String[] args){
 		Desktop desktop = new Desktop();
+		
 		desktop.setVisible(true);
 		desktop.start();
 	}
